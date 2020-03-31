@@ -6,22 +6,23 @@ namespace Automaton
 {
     public class TwoCharAutomaton
     {
-        protected byte?[] aTransition;
-        protected byte?[] bTransition;
+        protected int?[] aTransition;
+        protected int?[] bTransition;
         public int N { get; }
 
-        public TwoCharAutomaton(int n)
+        protected TwoCharAutomaton(int n)
         {
             N = n;
-            aTransition = new byte?[n];
-            bTransition = new byte?[n];
+            aTransition = new int?[n];
+            bTransition = new int?[n];
         }
 
-        public C[] Letters = new[] {C.A, C.B};
+        private readonly C[] _letters = {C.A, C.B};
 
         public IEnumerable<C> Sync()
         {
-            var start = new Verticle(Enumerable.Range(0, N).Select(_ => true).ToArray());Enumerable.Range(0, N).Select(_ => true).ToArray();
+            var start = new Verticle(Enumerable.Range(0, N).Select(_ => true).ToArray());
+            Enumerable.Range(0, N).Select(_ => true).ToArray();
             Verticle fin = null;
             var passed = new HashSet<Verticle> {start};
             var pred = new Dictionary<Verticle, Tuple<Verticle, C>>();
@@ -30,7 +31,7 @@ namespace Automaton
             while (fin is null && stack.Count != 0)
             {
                 var v = stack.Pop();
-                foreach (var c in Letters)
+                foreach (var c in _letters)
                 {
                     var u = PerformTransition(v, c);
                     if (passed.Contains(u))
@@ -53,6 +54,7 @@ namespace Automaton
                 res.Add(c);
                 fin = v;
             }
+
             res.Reverse();
             return res;
         }

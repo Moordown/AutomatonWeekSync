@@ -1,17 +1,17 @@
 ﻿namespace Automaton
 {
-    public class CAutomaton : TwoCharAutomaton
+    public class WAutomaton : TwoCharAutomaton
     {
-        public CAutomaton(int n) : base(n)
+        public WAutomaton(int n) : base(n)
         {
             for (int i = 0; i < n - 1; ++i)
             {
-                aTransition[i] = i;
+                aTransition[i] = i + 1;
                 bTransition[i] = i + 1;
             }
 
             aTransition[n - 1] = 0;
-            bTransition[n - 1] = 0;
+            bTransition[n - 1] = 1;
         }
     }
 }
