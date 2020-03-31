@@ -18,6 +18,8 @@
         <e p="Automaton.csproj" t="IncludeRecursive" />
         <e p="Automats" t="Include">
           <e p="CAutomaton.cs" t="Include" />
+          <e p="EAutomaton.cs" t="Include" />
+          <e p="HAutomaton.cs" t="Include" />
           <e p="TwoCharAutomaton.cs" t="Include" />
           <e p="WAutomaton.cs" t="Include" />
         </e>
