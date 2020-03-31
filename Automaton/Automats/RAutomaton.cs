@@ -1,8 +1,8 @@
 ﻿namespace Automaton
 {
-    public class DAutomaton : TwoCharAutomaton
+    public class RAutomaton: TwoCharAutomaton
     {
-        public DAutomaton(int n) : base(n)
+        public RAutomaton(int n) : base(n)
         {
             for (int i = 0; i < n; ++i)
             {
@@ -10,10 +10,10 @@
                 bTransition[i] = i + 1;
             }
 
-            aTransition[n - 1] = 0;
-            bTransition[n - 1] = 1;
-
             aTransition[n - 2] = 0;
+            aTransition[n - 1] = 1;
+
+            bTransition[n - 1] = 0;
         }
     }
 }
