@@ -1,6 +1,6 @@
-﻿namespace Automata
+﻿namespace Automaton
 {
-    public enum Character
+    public enum C
     {
         A,
         B

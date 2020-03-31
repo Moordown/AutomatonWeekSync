@@ -1,0 +1,10 @@
+C:\Users\Sergeev Viktor\Documents\university\kursach\volkov\Automata\Automaton\bin\Debug\netcoreapp2.2\Automaton.deps.json
+C:\Users\Sergeev Viktor\Documents\university\kursach\volkov\Automata\Automaton\bin\Debug\netcoreapp2.2\Automaton.runtimeconfig.json
+C:\Users\Sergeev Viktor\Documents\university\kursach\volkov\Automata\Automaton\bin\Debug\netcoreapp2.2\Automaton.runtimeconfig.dev.json
+C:\Users\Sergeev Viktor\Documents\university\kursach\volkov\Automata\Automaton\bin\Debug\netcoreapp2.2\Automaton.dll
+C:\Users\Sergeev Viktor\Documents\university\kursach\volkov\Automata\Automaton\bin\Debug\netcoreapp2.2\Automaton.pdb
+C:\Users\Sergeev Viktor\Documents\university\kursach\volkov\Automata\Automaton\obj\Debug\netcoreapp2.2\Automaton.csprojAssemblyReference.cache
+C:\Users\Sergeev Viktor\Documents\university\kursach\volkov\Automata\Automaton\obj\Debug\netcoreapp2.2\Automaton.AssemblyInfoInputs.cache
+C:\Users\Sergeev Viktor\Documents\university\kursach\volkov\Automata\Automaton\obj\Debug\netcoreapp2.2\Automaton.AssemblyInfo.cs
+C:\Users\Sergeev Viktor\Documents\university\kursach\volkov\Automata\Automaton\obj\Debug\netcoreapp2.2\Automaton.dll
+C:\Users\Sergeev Viktor\Documents\university\kursach\volkov\Automata\Automaton\obj\Debug\netcoreapp2.2\Automaton.pdb

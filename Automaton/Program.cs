@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Automata
+namespace Automaton
 {
     class Program
     {

@@ -1,18 +1,30 @@
+using Automaton;
+using FluentAssertions;
 using NUnit.Framework;
 
-namespace AutomataShould
+namespace AutomatonShould
 {
     public class Tests
     {
+        private CAutomaton _automaton;
         [SetUp]
         public void Setup()
         {
         }
 
-        [Test]
-        public void Test1()
+        [TestCaseSource(nameof(CAutomatonSource))]
+        public void TestLen2(int n, C[] ans)
         {
-            Assert.Pass();
+            _automaton = new CAutomaton(n);
+            
+            _automaton.Sync().Should().BeEquivalentTo(ans);
         }
+
+        static object[] CAutomatonSource =
+        {
+            new object[] {2, new [] {C.A}},
+            new object[] {3, new [] {C.A, C.B, C.B, C.A}},
+            new object[] {4, new [] {C.A, C.B, C.B, C.B, C.A, C.B, C.B, C.B, C.A}},
+        };
     }
 }
