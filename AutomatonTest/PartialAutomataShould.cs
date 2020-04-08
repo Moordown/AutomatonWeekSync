@@ -9,7 +9,7 @@ namespace AutomataShould
 {
     public class PartialAutomataShould
     {
-        [TestCaseSource(nameof(VAutomatonSource))]
+        [TestCaseSource(nameof(WeekSyncAutomatonSource))]
         public void ShouldWeekSync(int n, C c, int from, C[] ans)
         {
             var aut = new WeekSync(n);
@@ -34,7 +34,7 @@ namespace AutomataShould
             }
         }
 
-        private static object[] VAutomatonSource =
+        private static object[] WeekSyncAutomatonSource =
             Enumerable.Range(0, 4).Select(i => new object[] {4, C.A, i, null})
                 .Concat(Enumerable.Range(0, 4).Select(i => new object[] {4, C.B, i, new[] {C.A, C.A}})).ToArray();
     }
