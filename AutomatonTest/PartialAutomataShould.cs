@@ -12,9 +12,7 @@ namespace AutomataShould
         [TestCaseSource(nameof(WeekSyncAutomatonSource))]
         public void ShouldWeekSync(int n, C c, int from, C[] ans)
         {
-            var aut = new WeekSync(n);
-            aut.NullTransition(c, from);
-            aut.PartialSync().Should().BeEquivalentTo(ans);
+            new WeekSync(n).NullTransition(c, from).PartialSync().Should().BeEquivalentTo(ans);
         }
 
         [Test]
@@ -34,8 +32,17 @@ namespace AutomataShould
             }
         }
 
-        private static object[] WeekSyncAutomatonSource =
-            Enumerable.Range(0, 4).Select(i => new object[] {4, C.A, i, null})
-                .Concat(Enumerable.Range(0, 4).Select(i => new object[] {4, C.B, i, new[] {C.A, C.A}})).ToArray();
+        private static object[] WeekSyncAutomatonSource = new[]
+        {
+            new object[] {4, C.A, 0, null},
+            new object[] {4, C.A, 1, null},
+            new object[] {4, C.A, 2, null},
+            new object[] {4, C.A, 3, null},
+            
+            new object[] {4, C.B, 0, new [] {C.A, C.A}},
+            new object[] {4, C.B, 1, new [] {C.A, C.A}},
+            new object[] {4, C.B, 2, new [] {C.A, C.A}},
+            new object[] {4, C.B, 3, new [] {C.A, C.A}},
+        };
     }
 }
