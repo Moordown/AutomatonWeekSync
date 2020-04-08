@@ -22,7 +22,6 @@ namespace Automaton
         public IEnumerable<C> Sync()
         {
             var start = new Verticle(Enumerable.Range(0, N).Select(_ => true).ToArray());
-            Enumerable.Range(0, N).Select(_ => true).ToArray();
             Verticle fin = null;
             var passed = new HashSet<Verticle> {start};
             var pred = new Dictionary<Verticle, Tuple<Verticle, C>>();
@@ -34,7 +33,7 @@ namespace Automaton
                 foreach (var c in _letters)
                 {
                     var u = PerformTransition(v, c);
-                    if (passed.Contains(u))
+                    if (u is null || passed.Contains(u))
                         continue;
                     pred[u] = Tuple.Create(v, c);
                     if (u.Count == 1)
@@ -48,7 +47,7 @@ namespace Automaton
                 return null;
 
             var res = new List<C>();
-            while (fin != start)
+            while (!fin.Equals(start))
             {
                 var (v, c) = pred[fin];
                 res.Add(c);
@@ -59,39 +58,39 @@ namespace Automaton
             return res;
         }
 
-        // private bool _Sync(bool[] from, out List<Character> syncList)
-        // {
-        //     syncList = null;
-        //     var sum = from.Sum(i => i ? 1 : 0);
-        //     if (sum == 0)
-        //         return false;
-        //     if (sum == 1)
-        //     {
-        //         syncList = new List<Character>();
-        //         return true;
-        //     }
-        //
-        //     if (_Sync(PerformTransition(from, Character.A), out syncList))
-        //     {
-        //         syncList.Add(Character.A);
-        //         return true;
-        //     }
-        //
-        //     if (_Sync(PerformTransition(@from, Character.B), out syncList))
-        //     {
-        //         syncList.Add(Character.B);
-        //         return true;
-        //     }
-        //
-        //     return false;
-        // }
+        public IEnumerable<C> PartialSync()
+        {
+            // some checks
+            return Sync();
+        }
+
+        public TwoCharAutomaton Copy()
+        {
+            return new TwoCharAutomaton(N)
+            {
+                aTransition = aTransition.ToArray(),
+                bTransition = bTransition.ToArray()
+            };
+        }
+
+        public TwoCharAutomaton NullTransition(C c, int from)
+        {
+            var a = Copy();
+            var arr = c == C.A ? a.aTransition : a.bTransition;
+            arr[from] = null;
+            return a;
+        }
+
+
 
         private Verticle PerformTransition(Verticle from, C chr)
         {
-            var res = new bool[N];
             var transition = aTransition;
             if (chr == C.B)
                 transition = bTransition;
+            if (transition.Any(s => s is null))
+                return null;
+            var res = new bool[N];
             transition
                 .Where((s, i) => s != null && from.State[i])
                 .Select(s => res[s.Value] = true)
