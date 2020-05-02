@@ -1,4 +1,7 @@
 ﻿using System;
+using System.IO;
+using System.Net;
+using System.Text;
 
 namespace Automaton
 {
@@ -7,10 +10,10 @@ namespace Automaton
         static void Main(string[] args)
         {
             const int N = 10;
-
+            var sb = new StringBuilder();
             for (var n = 4; n <= N; ++n)
             {
-                Console.WriteLine($"\nVertex count: {n}");
+                sb.Append($"\nVertex count: {n}\n");
                 foreach (var aut in new TwoCharAutomaton[]
                 {
                     new DAutomaton(n),
@@ -26,19 +29,19 @@ namespace Automaton
                     var automaton = aut.GetType().ToString().Split('.')[1];
 
                     var fullSyncWord = string.Join("", aut.Sync() ?? new C [] {});
-                    Console.WriteLine($"\n{automaton}: ({fullSyncWord.Length}){fullSyncWord}");                    
+                    sb.Append($"\n{automaton}: ({fullSyncWord.Length}){fullSyncWord}\n");                    
                     
                     for (var i = 0; i < n; ++i)
                     {
-                        var syncWordForA = string.Join("", aut.NullTransition(C.A, i).PartialSync() ?? new C[] { });
-                        var syncWordForB = string.Join("", aut.NullTransition(C.B, i).PartialSync() ?? new C[] { });
-                        if (syncWordForA.Length > 0)
-                            Console.WriteLine($"{automaton} without A{i}: ({syncWordForA.Length}){syncWordForA}");
-                        if (syncWordForB.Length > 0)
-                            Console.WriteLine($"{automaton} without B{i}: ({syncWordForB.Length}){syncWordForB}");
+                        var syncResForA = aut.NullTransition(C.A, i).PartialSync();
+                        var syncResForB = aut.NullTransition(C.B, i).PartialSync();
+                        sb.Append($"{automaton} without A{i}: {syncResForA}\n");
+                        sb.Append($"{automaton} without B{i}: {syncResForB}\n");
                     }
                 }
             }
+            File.WriteAllText("log.txt", sb.ToString());
+            sb.Clear();
         }
     }
 }

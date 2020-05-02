@@ -19,17 +19,17 @@ namespace Automaton
 
         private readonly C[] _letters = {C.A, C.B};
 
-        public IEnumerable<C> Sync()
+        public C[] Sync()
         {
             var start = new Verticle(Enumerable.Range(0, N).Select(_ => true).ToArray());
             Verticle fin = null;
             var passed = new HashSet<Verticle> {start};
             var pred = new Dictionary<Verticle, Tuple<Verticle, C>>();
-            var stack = new Stack<Verticle>();
-            stack.Push(start);
-            while (fin is null && stack.Count != 0)
+            var collection = new Queue<Verticle>();
+            collection.Enqueue(start);
+            while (fin is null && collection.Count != 0)
             {
-                var v = stack.Pop();
+                var v = collection.Dequeue();
                 foreach (var c in _letters)
                 {
                     var u = PerformTransition(v, c);
@@ -39,12 +39,12 @@ namespace Automaton
                     if (u.Count == 1)
                         fin = u;
                     passed.Add(u);
-                    stack.Push(u);
+                    collection.Enqueue(u);
                 }
             }
 
             if (fin is null)
-                return null;
+                return new C [] {};
 
             var res = new List<C>();
             while (!fin.Equals(start))
@@ -55,13 +55,17 @@ namespace Automaton
             }
 
             res.Reverse();
-            return res;
+            return res.ToArray();
         }
 
-        public IEnumerable<C> PartialSync()
+        public SyncResult PartialSync()
         {
             // some checks
-            return Sync();
+            return new SyncResult
+            {
+                Word = Sync(),
+                Hint = "DFS"
+            };
         }
 
         public TwoCharAutomaton Copy()
