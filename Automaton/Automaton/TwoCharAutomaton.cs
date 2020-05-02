@@ -44,7 +44,7 @@ namespace Automaton
             }
 
             if (fin is null)
-                return new C [] {};
+                return new C[] { };
 
             var res = new List<C>();
             while (!fin.Equals(start))
@@ -58,9 +58,39 @@ namespace Automaton
             return res.ToArray();
         }
 
+        private bool CutByLetter(C cyclic)
+        {
+            var cyclicT = cyclic == C.A ? aTransition : bTransition;
+            var undefinedT = ReferenceEquals(cyclicT, aTransition) ? bTransition : aTransition;
+
+            if (cyclicT.Any(s => s is null))
+                return false;
+            var c = cyclicT.Where((t, i) => !(t is null) && t.Value == i).ToList();
+            if (c.Count < 2)
+                return false;
+            return c.Any(t => undefinedT[t.Value] is null);
+        }
+
         public SyncResult PartialSync()
         {
             // some checks
+            var cutByA = CutByLetter(C.A);
+            var cutByB = CutByLetter(C.B);
+
+            if (cutByA)
+                return new SyncResult
+                {
+                    Word = new C[] { },
+                    Hint = "ACT"
+                };
+
+            if (cutByB)
+                return new SyncResult
+                {
+                    Word = new C[] { },
+                    Hint = "BCT"
+                };
+
             return new SyncResult
             {
                 Word = Sync(),
@@ -86,14 +116,13 @@ namespace Automaton
         }
 
 
-
         private Verticle PerformTransition(Verticle from, C chr)
         {
             var transition = aTransition;
             if (chr == C.B)
                 transition = bTransition;
             foreach (var (t, i) in from.State.Select((t, i) => (t, i)))
-                if (t && transition[i] is null) 
+                if (t && transition[i] is null)
                     return null;
             var res = new bool[N];
             foreach (var (s, i) in from.State.Select((s, i) => (s, i)))
