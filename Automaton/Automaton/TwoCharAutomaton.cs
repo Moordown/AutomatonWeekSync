@@ -88,13 +88,13 @@ namespace Automaton
             var transition = aTransition;
             if (chr == C.B)
                 transition = bTransition;
-            if (transition.Any(s => s is null))
-                return null;
+            foreach (var (t, i) in from.State.Select((t, i) => (t, i)))
+                if (t && transition[i] is null) 
+                    return null;
             var res = new bool[N];
-            transition
-                .Where((s, i) => s != null && from.State[i])
-                .Select(s => res[s.Value] = true)
-                .Count();
+            foreach (var (s, i) in from.State.Select((s, i) => (s, i)))
+                if (s)
+                    res[transition[i].Value] = true;
             return new Verticle(res);
         }
     }

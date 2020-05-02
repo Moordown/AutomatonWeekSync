@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace Automaton
 {
@@ -47,6 +48,16 @@ namespace Automaton
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != GetType()) return false;
             return Equals((Verticle) obj);
+        }
+
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+            foreach (var (s, i) in State.Select((s, i) => (s, i)))
+                if (s)
+                    sb.Append($" {i}");
+
+            return sb.ToString();
         }
     }
 }
