@@ -6,14 +6,13 @@
         {
             for (int i = 0; i < n; ++i)
             {
-                if (i == 0)
-                    aTransition[i] = 1;
-                else if (i == 1)
-                    aTransition[i] = 2;
-                else
-                    aTransition[i] = i;
+                aTransition[i] = i;
                 bTransition[i] = i + 1;
             }
+
+            aTransition[0] = 1;
+            aTransition[1] = 2;
+            
             bTransition[n - 1] = 0;
         }
     }

@@ -1,6 +1,6 @@
 ﻿using Automaton;
 
-namespace Automata.Automaton
+namespace Automaton
 {
     public class WeekSync : TwoCharAutomaton
     {

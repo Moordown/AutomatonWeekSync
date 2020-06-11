@@ -6,8 +6,8 @@ namespace Automaton
 {
     public class TwoCharAutomaton
     {
-        protected int?[] aTransition;
-        protected int?[] bTransition;
+        public int?[] aTransition;
+        public int?[] bTransition;
         public int N { get; }
 
         protected TwoCharAutomaton(int n)
@@ -129,6 +129,15 @@ namespace Automaton
                 if (s)
                     res[transition[i].Value] = true;
             return new Verticle(res);
+        }
+
+        public TwoCharAutomaton MakeCopy()
+        {
+            return new TwoCharAutomaton(N)
+            {
+                aTransition = aTransition.ToArray(),
+                bTransition = bTransition.ToArray()
+            };
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using Automata.Automaton;
 using Automaton;
 using FluentAssertions;
 using NUnit.Framework;
